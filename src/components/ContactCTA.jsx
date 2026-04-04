@@ -144,9 +144,9 @@ const ContactCTA = () => {
           </motion.p>
 
           <div className="contact-methods">
-            <MethodCard icon={<Mail size={24} />} label="Email Us" value="founders@yourbrew.com" glowClass="orange-glow" index={0} />
-            <MethodCard icon={<Phone size={24} />} label="WhatsApp" value="+1 (555) YOUR-BREW" glowClass="yellow-glow" index={1} />
-            <MethodCard icon={<MapPin size={24} />} label="Location" value="Global Remote (NYC HQ)" glowClass="blue-glow" index={2} />
+            <MethodCard icon={<Mail size={24} />} label="Email Us" value="yourbrewofficial@gmail.com" glowClass="orange-glow" index={0} />
+            <MethodCard icon={<Phone size={24} />} label="WhatsApp" value="+91 6392512784" glowClass="yellow-glow" index={1} />
+            <MethodCard icon={<MapPin size={24} />} label="Location" value="Global Remote" glowClass="blue-glow" index={2} />
           </div>
         </div>
 

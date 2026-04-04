@@ -8,6 +8,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001;
 const FRONTEND_URL = process.env.FRONTEND_URL || '';
+const FRONTEND_URLS = process.env.FRONTEND_URLS || '';
 const GOOGLE_FORM_RESPONSE_URL =
     'https://docs.google.com/forms/d/e/1FAIpQLSe4-BEN8vvNV7IL3ikb1ffNeC1sTsy8HtcelS5DP4CWtt06Nw/formResponse';
 
@@ -24,6 +25,23 @@ const GOOGLE_FORM_FIELDS = {
 function normalizeArray(value) {
     return Array.isArray(value) ? value.filter(Boolean) : [];
 }
+
+function normalizeOrigin(value) {
+    return value ? value.trim().replace(/\/$/, '') : '';
+}
+
+const allowedOrigins = new Set(
+    [
+        FRONTEND_URL,
+        ...FRONTEND_URLS.split(','),
+        'http://localhost:5173',
+        'http://localhost:5174',
+        'http://127.0.0.1:5173',
+        'http://127.0.0.1:5174',
+    ]
+        .map(normalizeOrigin)
+        .filter(Boolean)
+);
 
 function buildInquirySummary({
     company,
@@ -83,19 +101,23 @@ async function submitToGoogleForm({
 
 app.use(cors({
     origin(origin, callback) {
-        if (!origin || !FRONTEND_URL) {
+        if (!origin) {
             callback(null, true);
             return;
         }
 
-        if (origin === FRONTEND_URL) {
+        const normalizedOrigin = normalizeOrigin(origin);
+
+        if (allowedOrigins.size === 0 || allowedOrigins.has(normalizedOrigin)) {
             callback(null, true);
             return;
         }
 
-        callback(new Error('Not allowed by CORS'));
+        console.warn(`Blocked by CORS: ${normalizedOrigin}`);
+        callback(null, false);
     },
 }));
+app.options('*', cors());
 app.use(express.json());
 
 app.post('/api/contact', async (req, res) => {

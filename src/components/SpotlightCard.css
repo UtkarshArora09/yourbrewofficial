@@ -1,0 +1,48 @@
+.spotlight-card {
+  position: relative;
+  background: var(--premium-bg);
+  border: 1px solid var(--premium-border);
+  border-radius: 24px;
+  overflow: hidden;
+  backdrop-filter: blur(var(--premium-blur));
+  -webkit-backdrop-filter: blur(var(--premium-blur));
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  z-index: 1;
+}
+
+.spotlight-card:hover {
+  border-color: var(--premium-border-lit);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.spotlight-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    var(--spotlight-size) circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(255, 107, 0, 0.08),
+    transparent 80%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+[data-theme='dark'] .spotlight-overlay {
+  background: radial-gradient(
+    var(--spotlight-size) circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(255, 255, 255, 0.04),
+    transparent 80%
+  );
+}
+
+.spotlight-card:hover .spotlight-overlay {
+  opacity: 1;
+}
+
+.spotlight-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}

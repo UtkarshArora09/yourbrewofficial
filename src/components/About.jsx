@@ -142,7 +142,7 @@ const About = () => {
             <div className="global-wrap">
               <Globe size={40} className="globe-icon pulse" />
               <h4>Global Remote</h4>
-              <span>NYC / London / Remote</span>
+              <span>Remote</span>
             </div>
             <ArrowUpRight className="corner-arrow" size={24} />
           </BentoCard>

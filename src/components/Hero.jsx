@@ -1,59 +1,60 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import MagneticEffect from './MagneticEffect';
 import './Hero.css';
 
 const Hero = () => {
   return (
-    <section className="hero" id="hero">
-      <div className="hero-glow"></div>
-      <div className="container hero-content">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 2.2 }}
-          className="hero-badge"
-        >
-          <span className="pulse-dot"></span>
-          Founder-to-Founder Support
-        </motion.div>
-        
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 2.4 }}
-          className="hero-title"
-        >
-          Your Vision, <br /><span className="text-gradient">Our Execution</span>
-        </motion.h1>
-        
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 2.6 }}
-          className="hero-subtitle"
-        >
-          The ultimate 10-pillar platform for startup founders. From MVP to Global Scale, we brew the tech that powers your growth.
-        </motion.p>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 2.8 }}
-          className="hero-actions"
-        >
-          <MagneticEffect strength={0.25}>
-            <a href="#contact" className="btn-primary">
-              Get Started <ArrowRight size={18} />
+    <section className="hero-section" id="hero">
+      <div className="container">
+        <div className="hero-content">
+
+          
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.19, 1, 0.22, 1] }}
+            className="hero-title"
+          >
+            Clarity, <span className="text-accent">before</span> <br /><span className="text-accent">everything else.</span>
+          </motion.h1>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.19, 1, 0.22, 1] }}
+            className="hero-subtitle"
+          >
+            Most businesses don’t break loudly. They leak quietly. <br />
+            We identify the hidden inefficiencies in your technology and operations, 
+            building systems that make your business lighter, not heavier.
+          </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.19, 1, 0.22, 1] }}
+            className="hero-actions"
+          >
+            <a href="#audit" className="btn-elite">
+              <span>Start Your Audit</span> <ArrowRight size={18} />
             </a>
-          </MagneticEffect>
-          <MagneticEffect strength={0.15}>
-            <a href="#services" className="btn-secondary">
-              Our Services
+            <a href="#services" className="btn-elite btn-outline">
+              <span>The Systemic Build</span>
             </a>
-          </MagneticEffect>
-        </motion.div>
+          </motion.div>
+        </div>
+      </div>
+      
+      <div className="hero-scroll-indicator">
+        <motion.div 
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="scroll-dot"
+        />
       </div>
     </section>
   );

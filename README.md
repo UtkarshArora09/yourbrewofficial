@@ -1,48 +1,16 @@
-﻿# YourBrew
+# React + Vite
 
-Startup landing page with a React/Vite frontend and an Express API that forwards inquiries to Google Forms.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Local setup
+Currently, two official plugins are available:
 
-Frontend:
-- Copy `.env.example` to `.env`
-- Keep `VITE_API_URL=http://localhost:5001` for local work
-- Run `npm install`
-- Run `npm run dev`
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-Backend:
-- Copy `server/.env.example` to `server/.env`
-- Run `cd server`
-- Run `npm install`
-- Run `npm start`
+## React Compiler
 
-## Recommended deployment
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- Frontend: Netlify
-- Backend: Render
+## Expanding the ESLint configuration
 
-### Netlify
-
-- Connect the repository
-- Build command: `npm run build`
-- Publish directory: `dist`
-- Set environment variable:
-  - `VITE_API_URL=https://your-render-service.onrender.com`
-
-### Render
-
-- Create a Web Service
-- Root directory: `server`
-- Build command: `npm install`
-- Start command: `npm start`
-- Set environment variables:
-  - `FRONTEND_URL=https://your-netlify-site.netlify.app`
-  - `SQLITE_ENABLED=false`
-
-## Production notes
-
-- The frontend uses `VITE_API_URL` in production and falls back to `/api` locally.
-- Set `SQLITE_ENABLED=false` in production unless you intentionally add persistent storage.
-- `netlify.toml` configures SPA routing.
-- `render.yaml` provides a starter Render blueprint.
-
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

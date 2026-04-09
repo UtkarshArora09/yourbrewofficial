@@ -1,40 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon } from 'lucide-react';
-import Logo from './Logo';
-import MagneticEffect from './MagneticEffect';
+import { motion } from 'framer-motion';
+import ThemeToggle from './ThemeToggle';
+import logoPng from '../assets/logo.png';
 import './Navbar.css';
 
 const Navbar = ({ theme, toggleTheme }) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
-    <nav className={`navbar ${scrolled ? 'nav-scrolled' : ''}`}>
-      <div className="container nav-content">
-        <Logo />
-        <div className="nav-links">
-          <MagneticEffect strength={0.1}>
-            <a href="#services">Services</a>
-          </MagneticEffect>
-          <MagneticEffect strength={0.1}>
-            <a href="#about">About</a>
-          </MagneticEffect>
+    <div className="navbar-wrapper">
+      <motion.nav 
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1], delay: 0.2 }}
+        className={`navbar-pill ${scrolled ? 'nav-scrolled' : ''}`}
+      >
+        <div className="nav-content">
+          <a href="#hero" className="nav-logo-box">
+            <img 
+              src={logoPng} 
+              alt="YourBrew" 
+              style={{ filter: theme === 'light' ? 'invert(1)' : 'none' }} 
+            />
+          </a>
+          
+          <div className="nav-links">
+            <a href="#audit" className="nav-link">Silent Leak Audit</a>
+            <a href="#services" className="nav-link">Systemic Build</a>
+            <a href="#about" className="nav-link">Strategic Partner</a>
+          </div>
+
           <div className="nav-actions">
-            <MagneticEffect strength={0.2}>
-              <a href="#contact" className="nav-cta">Let's Talk</a>
-            </MagneticEffect>
-            <button onClick={toggleTheme} className="theme-toggle" aria-label="Toggle Theme">
-              {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
-            </button>
+            <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+            <a href="#contact" className="btn-nav">
+              Inquire
+            </a>
           </div>
         </div>
-      </div>
-    </nav>
+      </motion.nav>
+    </div>
   );
 };
 

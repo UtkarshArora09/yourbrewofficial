@@ -1,30 +1,22 @@
-﻿import sqlite3 from 'sqlite3';
+import sqlite3 from 'sqlite3';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 const dbPath = path.resolve(__dirname, 'yourbrew_db.sqlite');
-const sqliteEnabled = process.env.SQLITE_ENABLED !== 'false';
 
-let db = null;
-
-if (sqliteEnabled) {
-    db = new sqlite3.Database(dbPath, (err) => {
-        if (err) {
-            console.error('Could not connect to SQLite database', err.message);
-        } else {
-            console.log('Connected to YourBrew SQLite database');
-            initializeSchema();
-        }
-    });
-} else {
-    console.log('SQLite logging disabled by environment');
-}
+const db = new sqlite3.Database(dbPath, (err) => {
+    if (err) {
+        console.error('❌ Could not connect to SQLite database', err.message);
+    } else {
+        console.log('✅ Connected to YourBrew SQLite database');
+        initializeSchema();
+    }
+});
 
 function initializeSchema() {
-    if (!db) return;
-
     db.run(`
         CREATE TABLE IF NOT EXISTS messages (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,18 +29,14 @@ function initializeSchema() {
         )
     `, (err) => {
         if (err) {
-            console.error('Could not create messages table', err.message);
+            console.error('❌ Could not create messages table', err.message);
         } else {
-            console.log('Messages table ready');
+            console.log('✅ Messages table ready');
         }
     });
 }
 
 export const query = (sql, params = []) => {
-    if (!db) {
-        return Promise.resolve([]);
-    }
-
     return new Promise((resolve, reject) => {
         db.all(sql, params, (err, rows) => {
             if (err) reject(err);
@@ -58,10 +46,6 @@ export const query = (sql, params = []) => {
 };
 
 export const run = (sql, params = []) => {
-    if (!db) {
-        return Promise.resolve({ id: null, changes: 0 });
-    }
-
     return new Promise((resolve, reject) => {
         db.run(sql, params, function (err) {
             if (err) reject(err);
@@ -71,4 +55,3 @@ export const run = (sql, params = []) => {
 };
 
 export default db;
-
